@@ -17,3 +17,8 @@ gem 'active_model_serializers'
 gem 'ffaker'
 gem 'react-rails', '~> 1.0.0.pre', github: 'reactjs/react-rails'
 
+group :test do
+  gem 'capybara'
+  gem 'rspec-rails'
+  gem 'poltergeist'
+end
