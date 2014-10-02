@@ -1,28 +1,15 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a sample of how to start with using React in Rails, this is an exact copy of the tutorial
+that can be found on React's site at http://facebook.github.io/react/docs/tutorial.html
 
-Things you may want to cover:
+To get started run the following:
 
-* Ruby version
+* <tt>bundle install</tt>
 
-* System dependencies
+* <tt>rake db:migrate && rake db:populate</tt>
 
-* Configuration
+* <tt>rails server</tt>
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+You will notice all the logic is inside the app/assets/javascript/comments.js.jsx, I have figured out
+a more elegant way to organize everything and will post that shortly
