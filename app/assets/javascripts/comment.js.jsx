@@ -6,14 +6,14 @@ var HelloWorld = React.createClass({
       <div className='HelloWorld'>
         Hello, World!
       </div>
-    )
-  };
+    );
+  }
 });
 
 var renderReact = function () {
   React.renderComponent(
     <HelloWorld />,
-    document.getElementById('comments');
+    document.getElementById('comments')
   );
 };
 
