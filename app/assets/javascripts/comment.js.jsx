@@ -48,12 +48,55 @@ var CommentBox = React.createClass({
       }.bind(this)
     });
   },
+  _handleCommentSubmit: function(comment) {
+    var comments = this.state.comments;
+    var newComment = comments.concat([comment]);
+    this.setState({comments: newComment});
+
+    $.ajax({
+      url: this.props.url,
+      dataType: 'json',
+      type: 'POST',
+      data: {"comment": comment},
+      success: function(data) {
+        this._loadCommentsFromServer();
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
   render: function() {
     return (
       <div className="commentBox">
         <h1>Comments</h1>
         <CommentList comments={this.state.comments} />
+        <CommentForm onCommentSubmit={this._handleCommentSubmit} />
       </div>
+    );
+  }
+});
+
+var CommentForm = React.createClass({
+  handleSubmit: function(e) {
+    e.preventDefault();
+    var author = this.refs.author.getDOMNode().value.trim();
+    var comment = this.refs.comment.getDOMNode().value.trim();
+    if (!comment || !author) {
+      return;
+    }
+    this.props.onCommentSubmit({author: author, comment: comment});
+    this.refs.author.getDOMNode().value = '';
+    this.refs.comment.getDOMNode().value = '';
+    return;
+  },
+  render: function() {
+    return (
+      <form className="commentForm" onSubmit={this.handleSubmit}>
+        <input type="text" placeholder="Your name" ref="author" />
+        <input type="text" placeholder="Say something..." ref="comment" />
+        <input type="submit" value="Post" />
+      </form>
     );
   }
 });
