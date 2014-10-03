@@ -1,5 +1,12 @@
 /** @jsx React.DOM */
 
+var token = $('meta[name="csrf-token"]').attr('content');
+$.ajaxSetup({
+  beforeSend: function(xhr) {
+    xhr.setRequestHeader('X-CSRF-Token', token);
+  }
+});
+
 var Comment = React.createClass({
   render: function() {
     return (
@@ -93,19 +100,29 @@ var CommentForm = React.createClass({
   render: function() {
     return (
       <form className="commentForm" onSubmit={this.handleSubmit}>
-        <input type="text" placeholder="Your name" ref="author" />
-        <input type="text" placeholder="Say something..." ref="comment" />
+        <input type="text" id="author" name="author" placeholder="Your name" ref="author" />
+        <input type="text" id="comment" name="comment" placeholder="Say something..." ref="comment" />
         <input type="submit" value="Post" />
       </form>
     );
   }
 });
 
-var renderReact = function() {
-  React.renderComponent(
-    <CommentBox url="/comments.json" />,
-    document.getElementById('comments')
-  );
-};
+// Move this to the proper spot, as well as all the componenets
+var Router = Backbone.Router.extend({
+  message: '',
+  routes: {
+    "" : "index"
+  },
+  index : function() {
+    React.renderComponent(
+      <CommentBox url="/comments.json" />,
+      document.getElementById('comments')
+    );
+  }
+});
 
-$(document).ready(renderReact);
+var r = new Router();
+
+Backbone.history.start();
+

@@ -13,8 +13,9 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require phantomjs-shims
 //= require react
 //= require react_ujs
 //= require components
 //= require underscore
-//= require_tree .
+//= require backbone
