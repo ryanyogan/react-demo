@@ -11,5 +11,7 @@ To get started run the following:
 
 * <tt>rails server</tt>
 
+* To run tests, you will need PhantomJS <tt>brew install phantomjs</tt>
+
 You will notice all the logic is inside the app/assets/javascript/comments.js.jsx, I have figured out
 a more elegant way to organize everything and will post that shortly
