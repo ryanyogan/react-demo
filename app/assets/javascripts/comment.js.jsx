@@ -11,10 +11,14 @@ var Comment = React.createClass({
   render: function() {
     return (
       <div className="comment">
-        <h2 className="commentAuthor">
-          {this.props.author}
-        </h2>
-          <a href={"#/comments/" + this.props.id}>{this.props.comment}</a>
+        <table width="100%">
+          <thead>
+            <tr><th width="100%">{this.props.author}</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><a href={"#/comments/" + this.props.id}>{this.props.comment}</a></td></tr>
+          </tbody>
+        </table>
       </div>
     );
   }
@@ -76,9 +80,13 @@ var CommentBox = React.createClass({
   render: function() {
     return (
       <div className="commentBox">
-        <h1>Comments</h1>
-        <CommentList comments={this.state.comments} />
-        <CommentForm onCommentSubmit={this._handleCommentSubmit} />
+        <div className="row">
+          <div className="small-8 small-centered columns">
+            <h4>Got something to say?</h4>
+            <CommentForm onCommentSubmit={this._handleCommentSubmit} />
+            <CommentList comments={this.state.comments} />
+          </div>
+        </div>
       </div>
     );
   }
@@ -102,7 +110,7 @@ var CommentForm = React.createClass({
       <form className="commentForm" onSubmit={this.handleSubmit}>
         <input type="text" id="author" name="author" placeholder="Your name" ref="author" />
         <input type="text" id="comment" name="comment" placeholder="Say something..." ref="comment" />
-        <input type="submit" value="Post" />
+        <input type="submit" value="Post" className="button small" />
       </form>
     );
   }

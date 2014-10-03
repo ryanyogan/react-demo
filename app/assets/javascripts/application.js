@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require foundation
 //= require turbolinks
 //= require phantomjs-shims
 //= require react
@@ -19,3 +20,5 @@
 //= require components
 //= require underscore
 //= require backbone
+
+$(function(){ $(document).foundation(); });

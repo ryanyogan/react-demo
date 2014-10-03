@@ -2,7 +2,7 @@ class CommentsController < ApplicationController
   respond_to :json
 
   def index
-    respond_with Comment.all
+    respond_with Comment.all.sort_by {|c| c.created_at }.reverse
   end
 
   def create

@@ -16,6 +16,7 @@ gem 'spring',        group: :development
 gem 'active_model_serializers'
 gem 'ffaker'
 gem 'database_cleaner'
+gem 'foundation-rails'
 
 gem 'react-rails', '~> 1.0.0.pre', github: 'reactjs/react-rails'
 
