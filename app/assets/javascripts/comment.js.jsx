@@ -14,7 +14,7 @@ var Comment = React.createClass({
         <h2 className="commentAuthor">
           {this.props.author}
         </h2>
-          {this.props.comment}
+          <a href={"#/comments/" + this.props.id}>{this.props.comment}</a>
       </div>
     );
   }
@@ -24,7 +24,7 @@ var CommentList = React.createClass({
   render: function() {
     var commentNodes = this.props.comments.map(function(comment, index) {
       return (
-        <Comment author={comment.author} comment={comment.comment} key={index} />
+        <Comment author={comment.author} comment={comment.comment} id={comment.id} key={index} />
       );
     });
 
@@ -108,17 +108,49 @@ var CommentForm = React.createClass({
   }
 });
 
+var CommentView = React.createClass({
+  getInitialState: function() {
+    return { author: '', comment: '' }
+  },
+  componentWillMount: function() {
+  	$.ajax({
+  		url: '/comments/' + this.props.comment_id,
+  		dataType: 'json',
+  		type: 'GET',
+  		success: function(data) {
+  			this.setState({author: data.author, comment: data.comment});
+  		}.bind(this)
+  	});
+  },
+  render: function() {
+  	return (
+  		<div>
+  			<h1>{this.state.author}</h1>
+  			<span className="comments">{this.state.comment}</span><br />
+  			<a href="#/">Back to list of comments</a>
+  		</div>
+  	);
+  }
+});
+
 // Move this to the proper spot, as well as all the componenets
 var Router = Backbone.Router.extend({
   message: '',
   routes: {
-    "" : "index"
+    "" : "index",
+    "comments/:comment_id" : "view_comment"
   },
   index : function() {
     React.renderComponent(
       <CommentBox url="/comments.json" />,
       document.getElementById('comments')
     );
+  },
+  view_comment : function(comment_id) {
+  	React.renderComponent(
+  		<CommentView comment_id={comment_id} />,
+  		document.getElementById('comments')
+  	);
   }
 });
 
